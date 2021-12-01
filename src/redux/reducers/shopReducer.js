@@ -45,11 +45,12 @@ const shopListReducer = (state = initialState, action) => {
       duplicateArray[itemIndex].name = payload.name;
       duplicateArray[itemIndex].area = payload.area;
       duplicateArray[itemIndex].category = payload.category;
-
+      duplicateArray[itemIndex].openingTime = payload.openingTime;
+      duplicateArray[itemIndex].closingTime = payload.closingTime;
       return {
         ...state,
         shopList: duplicateArray,
-        duplicateShopList: [...state.shopList],
+        duplicateShopList: [...duplicateArray],
       };
 
     case FILTER_SHOP_LIST:

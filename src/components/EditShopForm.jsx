@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { EDIT_SHOP } from '../redux/types';
 
 const EditShopForm = ({ shopData, setIsOpenEditModel }) => {
-  const { name, area, category, id } = shopData;
+  const { name, area, category, id, closingTime, openingTime } = shopData;
   const areaList = [
     'Thane',
     'Pune',
@@ -25,6 +25,8 @@ const EditShopForm = ({ shopData, setIsOpenEditModel }) => {
   const [shopName, setShopName] = useState(name);
   const [selectedShopArea, setSelectedShopArea] = useState(area);
   const [selectedShopCategory, setSelectedShopCategory] = useState(category);
+  const [shopOpeningTime, setShopOpeningTime] = useState(openingTime);
+  const [shopClosingTime, setShopClosingTime] = useState(closingTime);
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
@@ -34,6 +36,8 @@ const EditShopForm = ({ shopData, setIsOpenEditModel }) => {
       name: shopName,
       area: selectedShopArea,
       category: selectedShopCategory,
+      openingTime: shopOpeningTime,
+      closingTime: shopClosingTime,
     };
     if (shopName.search(/^[a-zA-z\s]+$/) === -1) {
       alert('Shop name should only contains alphabet!');
@@ -126,11 +130,13 @@ const EditShopForm = ({ shopData, setIsOpenEditModel }) => {
             htmlFor="shop-name"
             className="text-lg font-semibold text-gray-800 mb-2"
           >
-            Shop Closing Date
+            Shop Opening Date
           </label>
           <input
-            type="date"
+            type="time"
+            value={shopOpeningTime}
             className="h-10 w-full border border-gray-400 rounded-md px-2"
+            onChange={(event) => setShopOpeningTime(event.target.value)}
           />
         </section>
         <section className="flex-1">
@@ -138,11 +144,13 @@ const EditShopForm = ({ shopData, setIsOpenEditModel }) => {
             htmlFor="shop-name"
             className="text-lg font-semibold text-gray-800 mb-2"
           >
-            Shop Opening Date
+            Shop Closing Date
           </label>
           <input
-            type="date"
+            type="time"
+            value={shopClosingTime}
             className="h-10 w-full border border-gray-400 rounded-md px-2"
+            onChange={(event) => setShopClosingTime(event.target.value)}
           />
         </section>
       </div>

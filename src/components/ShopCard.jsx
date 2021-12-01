@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import shopPreview from '../Images/shop-preview.png';
 import { FaTrash, FaPencilAlt } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
@@ -15,21 +15,22 @@ const ShopCard = ({ previewData, editActions }) => {
     let openingMinute = Number(openingTime.split(':')[1]);
     let closingHour = Number(closingTime.split(':')[0]);
     let closingMinute = Number(closingTime.split(':')[1]);
-    setInterval(() => {
-      let currentD = new Date();
-      let shopOpeningTime = new Date();
-      shopOpeningTime.setHours(openingHour, openingMinute, 0);
-      let shopClosingTime = new Date();
-      shopClosingTime.setHours(closingHour, closingMinute, 0);
-      console.log(shopOpeningTime, shopClosingTime, currentD);
-      if (currentD >= shopOpeningTime && currentD < shopClosingTime) {
-        setIsShopOpen(true);
-      } else {
-        setIsShopOpen(false);
-      }
-    }, 1000);
+
+    let currentD = new Date();
+    let shopOpeningTime = new Date();
+    shopOpeningTime.setHours(openingHour, openingMinute, 0);
+    let shopClosingTime = new Date();
+    shopClosingTime.setHours(closingHour, closingMinute, 0);
+    console.log(shopOpeningTime, shopClosingTime, currentD);
+    if (currentD >= shopOpeningTime && currentD < shopClosingTime) {
+      setIsShopOpen(true);
+    } else {
+      setIsShopOpen(false);
+    }
   };
-  getOpenStatus();
+  useEffect(() => {
+    getOpenStatus();
+  }, [openingTime, closingTime]);
   return (
     <div className="flex-1 flex text-center justify-center min-h-full ">
       <div className="flex w-full flex-col border border-gray-300 bg-white rounded-xl pb-2">
