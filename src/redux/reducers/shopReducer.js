@@ -5,30 +5,12 @@ import {
   REMOVE_SHOP,
   EDIT_SHOP,
   FILTER_SHOP_LIST,
+  RESET_FILTERS,
 } from '../types';
 
 const initialState = {
-  shopList: [
-    {
-      id: 1,
-      name: 'Rishabh Sweet shop',
-      area: 'Nagpur',
-      category: 'Baker',
-    },
-    {
-      id: 2,
-      name: 'Ishaan shop',
-      area: 'Nashik',
-      category: 'Grocery',
-    },
-    {
-      id: 3,
-      name: 'Amit kirana store',
-      area: 'Mumbai Suburban',
-      category: 'Grocery',
-    },
-  ],
-
+  shopList: [],
+  duplicateShopList: [],
   loading: false,
 };
 
@@ -45,11 +27,15 @@ const shopListReducer = (state = initialState, action) => {
       return {
         ...state,
         shopList: [...state.shopList, payload],
+        duplicateShopList: [...state.duplicateShopList, payload],
       };
     case REMOVE_SHOP:
       return {
         ...state,
         shopList: state.shopList.filter((shop) => shop.id !== payload),
+        duplicateShopList: state.duplicateShopList.filter(
+          (shop) => shop.id !== payload
+        ),
       };
     case EDIT_SHOP:
       const duplicateArray = [...state.shopList];
@@ -63,17 +49,18 @@ const shopListReducer = (state = initialState, action) => {
       return {
         ...state,
         shopList: duplicateArray,
+        duplicateShopList: [...state.shopList],
       };
 
     case FILTER_SHOP_LIST:
       let shopListFiltered;
       if (payload.type === 'area') {
-        shopListFiltered = state.shopList.filter(
+        shopListFiltered = state.duplicateShopList.filter(
           (element) => element.area === payload.value
         );
       }
       if (payload.type === 'category') {
-        shopListFiltered = state.shopList.filter(
+        shopListFiltered = state.duplicateShopList.filter(
           (element) => element.category === payload.value
         );
       }
@@ -82,6 +69,11 @@ const shopListReducer = (state = initialState, action) => {
         shopList: shopListFiltered,
       };
 
+    case RESET_FILTERS:
+      return {
+        ...state,
+        shopList: [...state.duplicateShopList],
+      };
     case GET_SHOP_LIST:
     default:
       return state;

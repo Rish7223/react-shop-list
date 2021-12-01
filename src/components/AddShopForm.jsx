@@ -12,6 +12,10 @@ const AddShopForm = ({ formActions }) => {
     setShopName,
     selectedShopArea,
     selectedShopCategory,
+    setShopClosingTime,
+    setShopOpeningTime,
+    shopOpeningTime,
+    shopClosingTime,
   } = formActions;
   const dispatch = useDispatch();
 
@@ -22,7 +26,12 @@ const AddShopForm = ({ formActions }) => {
       name: shopName,
       area: selectedShopArea,
       category: selectedShopCategory,
+      openingTime: shopOpeningTime,
+      closingTime: shopClosingTime,
     };
+    if (shopName.length > 30) {
+      return alert('Shop name should be under 30 words!');
+    }
     if (shopName.search(/^[a-zA-z\s]+$/) === -1) {
       alert('Shop name should only contains alphabet!');
       return;
@@ -113,11 +122,12 @@ const AddShopForm = ({ formActions }) => {
             htmlFor="shop-name"
             className="text-lg font-semibold text-gray-800 mb-2"
           >
-            Shop Closing Date
+            Shop Opening Date
           </label>
           <input
-            type="date"
+            type="time"
             className="h-10 w-full border border-gray-400 rounded-md px-2"
+            onChange={(event) => setShopOpeningTime(event.target.value)}
           />
         </section>
         <section className="flex-1">
@@ -125,11 +135,12 @@ const AddShopForm = ({ formActions }) => {
             htmlFor="shop-name"
             className="text-lg font-semibold text-gray-800 mb-2"
           >
-            Shop Opening Date
+            Shop Closing Date
           </label>
           <input
-            type="date"
+            type="time"
             className="h-10 w-full border border-gray-400 rounded-md px-2"
+            onChange={(event) => setShopClosingTime(event.target.value)}
           />
         </section>
       </div>

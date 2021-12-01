@@ -28,6 +28,8 @@ const AddShop = () => {
   const [selectedShopCategory, setSelectedShopCategory] = useState(
     shopCategories[0]
   );
+  const [shopOpeningTime, setShopOpeningTime] = useState();
+  const [shopClosingTime, setShopClosingTime] = useState();
 
   return (
     <div className="min-h-screen w-full bg-gray-100">
@@ -46,6 +48,10 @@ const AddShop = () => {
               areaList,
               shopCategories,
               setSelectedShopArea,
+              setShopClosingTime,
+              shopClosingTime,
+              shopOpeningTime,
+              setShopOpeningTime,
               setSelectedShopCategory,
               setShopName,
               selectedShopArea,
@@ -53,7 +59,13 @@ const AddShop = () => {
             }}
           />
           <PreviewShopCard
-            previewData={{ shopName, selectedShopArea, selectedShopCategory }}
+            previewData={{
+              shopName,
+              selectedShopArea,
+              selectedShopCategory,
+              shopClosingTime,
+              shopOpeningTime,
+            }}
           />
         </section>
       </div>

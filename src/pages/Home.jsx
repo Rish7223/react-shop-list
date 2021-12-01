@@ -16,10 +16,10 @@ const Home = () => {
     <div className="min-h-screen w-full bg-gray-100">
       <Header />
       <div className="px-6 md:px-20 py-4">
-        <div className="flex items-center justify-between py-5">
+        <div className="flex flex-col-reverse md:flex-row items-center justify-between py-5">
           <FilterComponent />
           <Link to="/add-shop">
-            <button className="px-10 py-2 text-white bg-red-700 text-lg font-semibold rounded-xl">
+            <button className="px-10 py-2 text-white bg-red-700 text-lg font-semibold rounded-xl mb-2 md:mb-0">
               Add Shop
             </button>
           </Link>
